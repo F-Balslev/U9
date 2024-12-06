@@ -1,0 +1,389 @@
+{
+    "recreate_database": false,
+    "database_name": "bikewind",
+    "table_data": [
+        {
+            "table_name": "brands",
+            "columns": [
+                {
+                    "name": "brand_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT PRIMARY KEY"
+                },
+                {
+                    "name": "brand_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "categories",
+            "columns": [
+                {
+                    "name": "category_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT PRIMARY KEY"
+                },
+                {
+                    "name": "category_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "customers",
+            "columns": [
+                {
+                    "name": "customer_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT PRIMARY KEY"
+                },
+                {
+                    "name": "first_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "last_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "phone",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255)"
+                },
+                {
+                    "name": "email",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "street",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "city",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "state",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "zip_code",
+                    "dtype": "int",
+                    "sql_type": "MEDIUMINT NOT NULL"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "order_items",
+            "columns": [
+                {
+                    "name": "order_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "item_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "product_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "quantity",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "list_price",
+                    "dtype": "float",
+                    "sql_type": "DECIMAL(10,2) NOT NULL"
+                },
+                {
+                    "name": "discount",
+                    "dtype": "float",
+                    "sql_type": "DECIMAL(4,2) NOT NULL"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "orders",
+            "columns": [
+                {
+                    "name": "order_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT PRIMARY KEY"
+                },
+                {
+                    "name": "customer_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "order_status",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "order_date",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "required_date",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "shipped_date",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "store_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "staff_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "products",
+            "columns": [
+                {
+                    "name": "product_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT PRIMARY KEY"
+                },
+                {
+                    "name": "product_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "brand_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "category_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "model_year",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "list_price",
+                    "dtype": "float",
+                    "sql_type": "DECIMAL(10,2) NOT NULL"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "staffs",
+            "columns": [
+                {
+                    "name": "staff_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT PRIMARY KEY"
+                },
+                {
+                    "name": "first_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "last_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "email",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "phone",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "active",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "store_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "manager_id",
+                    "dtype": "Int64",
+                    "sql_type": "SMALLINT"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "stocks",
+            "columns": [
+                {
+                    "name": "store_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "product_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT NOT NULL"
+                },
+                {
+                    "name": "quantity",
+                    "dtype": "str",
+                    "sql_type": "SMALLINT NOT NULL"
+                }
+            ],
+            "data": null
+        },
+        {
+            "table_name": "stores",
+            "columns": [
+                {
+                    "name": "store_id",
+                    "dtype": "int",
+                    "sql_type": "SMALLINT PRIMARY KEY"
+                },
+                {
+                    "name": "store_name",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "phone",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "email",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "street",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "city",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "state",
+                    "dtype": "str",
+                    "sql_type": "VARCHAR(255) NOT NULL"
+                },
+                {
+                    "name": "zip_code",
+                    "dtype": "int",
+                    "sql_type": "MEDIUMINT"
+                }
+            ],
+            "data": null
+        }
+    ],
+    "foreign_keys": [
+        {
+            "child_table": "orders",
+            "child_column": "customer_id",
+            "parent_table": "customers",
+            "parent_column": "customer_id"
+        },
+        {
+            "child_table": "order_items",
+            "child_column": "order_id",
+            "parent_table": "orders",
+            "parent_column": "order_id"
+        },
+        {
+            "child_table": "orders",
+            "child_column": "store_id",
+            "parent_table": "stores",
+            "parent_column": "store_id"
+        },
+        {
+            "child_table": "orders",
+            "child_column": "staff_id",
+            "parent_table": "staffs",
+            "parent_column": "staff_id"
+        },
+        {
+            "child_table": "staffs",
+            "child_column": "manager_id",
+            "parent_table": "staffs",
+            "parent_column": "staff_id"
+        },
+        {
+            "child_table": "staffs",
+            "child_column": "store_id",
+            "parent_table": "stores",
+            "parent_column": "store_id"
+        },
+        {
+            "child_table": "stocks",
+            "child_column": "store_id",
+            "parent_table": "stores",
+            "parent_column": "store_id"
+        },
+        {
+            "child_table": "order_items",
+            "child_column": "product_id",
+            "parent_table": "products",
+            "parent_column": "product_id"
+        },
+        {
+            "child_table": "products",
+            "child_column": "brand_id",
+            "parent_table": "brands",
+            "parent_column": "brand_id"
+        },
+        {
+            "child_table": "products",
+            "child_column": "category_id",
+            "parent_table": "categories",
+            "parent_column": "category_id"
+        },
+        {
+            "child_table": "stocks",
+            "child_column": "product_id",
+            "parent_table": "products",
+            "parent_column": "product_id"
+        }
+
+    ]
+}
