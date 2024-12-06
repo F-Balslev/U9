@@ -1,5 +1,4 @@
 import os
-from dataclasses import dataclass
 from pathlib import Path
 
 import pandas as pd
@@ -8,27 +7,7 @@ import tqdm
 from dotenv import load_dotenv
 from numpy import int64 as np_i64
 
-
-@dataclass
-class Column:
-    name: str
-    dtype: str
-    sql_type: str
-
-
-@dataclass
-class TableData:
-    table_name: str
-    columns: list[Column]
-    data: pd.DataFrame
-
-
-@dataclass
-class ForeignKey:
-    child_table: str
-    child_column: str
-    parent_table: str
-    parent_column: str
+from utils.custom_datastructures import ForeignKey, Procedure, SQLData, TableData
 
 
 class DatabaseConnection:
@@ -118,6 +97,9 @@ class DatabaseConnection:
             self.write_table(table)
 
     def add_foreign_keys(self):
+        if not self.recreate_database:
+            return
+
         for key in self.foreign_keys:
             self.execute(
                 f"""ALTER TABLE {key.child_table}
@@ -125,3 +107,70 @@ class DatabaseConnection:
                 FOREIGN KEY ({key.child_column})
                 REFERENCES {key.parent_table}({key.parent_column})"""
             )
+
+    def _process_sql_data(self, fetched_data, fetched_columns):
+        data = [[*row] for row in fetched_data]
+        column_names = [col[0] for col in fetched_columns]
+
+        sql_data = SQLData(
+            n_rows=len(data),
+            columns=column_names,
+            data=pd.DataFrame(data, columns=column_names),
+        )
+
+        return sql_data
+
+    def _sp_customer_name(self, customer_id: int) -> SQLData:
+        # Do better error handling
+        assert isinstance(customer_id, int) or (
+            isinstance(customer_id, str) and customer_id.iisnumeric()
+        )
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute(f"CALL customer_name({customer_id}, @ans);")
+            cursor.execute("SELECT @ans;")
+
+            data = self._process_sql_data(cursor.fetchall(), [["customer_name"]])
+
+            return data
+
+    def _sp_product_information_per_model_year(self, model_year: int) -> SQLData:
+        assert isinstance(model_year, int) or (
+            isinstance(model_year, str) and model_year.iisnumeric()
+        )
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute(f"CALL yearly_product_information({model_year});")
+
+            data = self._process_sql_data(cursor.fetchall(), cursor.description)
+
+            # Don't really know why this is needed
+            cursor.cancel()
+
+            return data
+
+    def _sp_store_inventory(self, store_id) -> SQLData:
+        assert isinstance(store_id, int) or (
+            isinstance(store_id, str) and store_id.iisnumeric()
+        )
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute(f"CALL store_inventory({store_id});")
+
+            data = self._process_sql_data(cursor.fetchall(), cursor.description)
+
+            # Don't really know why this is needed
+            cursor.cancel()
+
+            return data
+
+    def call_stored_procedure(self, procedure: Procedure, args) -> SQLData:
+        match procedure:
+            case Procedure.CUSTOMER_NAME:
+                return self._sp_customer_name(args)
+            case Procedure.PRODUCTS_ON_MODEL_YEAR:
+                return self._sp_product_information_per_model_year(args)
+            case Procedure.STORE_INVENTORY:
+                return self._sp_store_inventory(args)
+            case _:
+                return SQLData()

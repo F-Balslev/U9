@@ -1,6 +1,6 @@
 import json
 
-from utils.database_connection import Column, ForeignKey, TableData
+from utils.custom_datastructures import Column, ForeignKey, TableData
 
 
 def save_config(config, filepath: str = "config.json"):
@@ -10,7 +10,6 @@ def save_config(config, filepath: str = "config.json"):
 
 def convert_config(config):
     tables = []
-
     for table in config["table_data"]:
         tmp_table = TableData(**table)
         tmp_table.columns = [Column(**col) for col in tmp_table.columns]

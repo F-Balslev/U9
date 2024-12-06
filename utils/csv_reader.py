@@ -1,6 +1,6 @@
 import pandas as pd
 
-from utils.database_connection import TableData
+from utils.custom_datastructures import TableData
 
 
 def read_csv(basepath: str, table_data: TableData):
@@ -13,7 +13,10 @@ def read_csv(basepath: str, table_data: TableData):
     return df
 
 
-def read_all_csvs(config: dict[str, list[TableData]], basepath="data/"):
+def load_data(config: dict[str, list[TableData]], basepath="data/", force_load=False):
+    if not config["recreate_database"] and not force_load:
+        return config
+
     for idx, table in enumerate(config["table_data"]):
         config["table_data"][idx].data = read_csv(basepath, table)
 
