@@ -10,5 +10,8 @@ SQL_PASSWORD=password
 
 to connect to a locally hosted MySQL server.
 
+## Requires a ``` config.json ``` file in the same folder as ``` main.py ``` 
+An example config file is available in the ``` config ``` branch.
+
 ## Run the script with
 ```python main.py```
