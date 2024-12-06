@@ -120,10 +120,9 @@ class DatabaseConnection:
 
         return sql_data
 
-    def _sp_customer_name(self, customer_id: int) -> SQLData:
-        # Do better error handling
+    def _sp_customer_name(self, customer_id) -> SQLData:
         assert isinstance(customer_id, int) or (
-            isinstance(customer_id, str) and customer_id.iisnumeric()
+            isinstance(customer_id, str) and customer_id.isnumeric()
         )
 
         with self.db_connection.cursor() as cursor:
@@ -134,9 +133,9 @@ class DatabaseConnection:
 
             return data
 
-    def _sp_product_information_per_model_year(self, model_year: int) -> SQLData:
+    def _sp_product_information_per_model_year(self, model_year) -> SQLData:
         assert isinstance(model_year, int) or (
-            isinstance(model_year, str) and model_year.iisnumeric()
+            isinstance(model_year, str) and model_year.isnumeric()
         )
 
         with self.db_connection.cursor() as cursor:
@@ -151,7 +150,7 @@ class DatabaseConnection:
 
     def _sp_store_inventory(self, store_id) -> SQLData:
         assert isinstance(store_id, int) or (
-            isinstance(store_id, str) and store_id.iisnumeric()
+            isinstance(store_id, str) and store_id.isnumeric()
         )
 
         with self.db_connection.cursor() as cursor:
